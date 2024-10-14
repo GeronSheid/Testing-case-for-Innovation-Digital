@@ -1,5 +1,6 @@
 <script>
-    import Input from "./input.svelte";
+    import Checkbox from "./checkbox.svelte";
+import Input from "./input.svelte";
 </script>
 
 <div class="form__wrapper">
@@ -49,12 +50,21 @@
                 type='message' 
             />
         </div>
-        
+        <div class="form__confidential">
+            <Checkbox name='confidential'/>
+            <label for="form-confidential">
+                I accept <a href="#">Terms and Privacy Policy</a>
+            </label>
+        </div>
     </form>
 </div>
 
 <style lang="scss">
     .form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
         color: #fff;
         font-size: 18px;
         line-height: 120%;
@@ -76,9 +86,25 @@
         }
 
         &__inputs {
+            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 38px;
+        }
+
+        &__confidential {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 26px 0;
+            & > label {
+                font-size: 15px;
+                font-weight: 300;
+                color: #797EA3;
+                & > a {
+                    color: #B9BEE5;
+                }
+            }
         }
     }
 </style>
