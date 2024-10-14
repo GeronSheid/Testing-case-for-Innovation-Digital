@@ -70,7 +70,7 @@
             companyError = 'Please enter your company'
             isValid = false
         } else {
-            nameError = ''
+            companyError = ''
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -104,7 +104,6 @@
         if(!validation) {
             return
         }
-        //тут должен быть fetch, но куда отправлять то?
         sendData()
         notificationVisible = true;
         setTimeout(() => {
