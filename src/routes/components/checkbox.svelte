@@ -49,7 +49,7 @@
 
 <style lang="scss">
 
-    $size: 30px;
+    $size: 1.7rem;
     $borderColor: #3F4363;
     $borderHover: #8f94b8a8;
     $active: #2C2F47;

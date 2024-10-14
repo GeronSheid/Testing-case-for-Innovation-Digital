@@ -55,4 +55,10 @@
             background-color: $danger;
         }
     }
+
+    @media (max-width: 900px) {
+        .customBtn {
+            width: 100%;
+        }
+    }
 </style>

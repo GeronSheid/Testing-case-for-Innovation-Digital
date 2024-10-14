@@ -85,12 +85,11 @@
 
         & > textarea {
             margin: 6px 0 5px 0;
-            font-size: 18px;
             color: $textMain;
             background-color: transparent;
             border: none;
             outline: none;
-            overflow: hidden; //Надо будет решить вопрос по другому. Это костыль
+            overflow: hidden;
             resize: none;
         }
 
@@ -116,7 +115,7 @@
         position: absolute;
         left: 0;
         bottom: -50%;
-        font-size: 12px;
+        font-size: 0.66rem;
         color: $textError;
     }
     }

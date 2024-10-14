@@ -1,6 +1,4 @@
 <script lang="ts">
-    import '../../variables.scss';
-
     import Button from "./button.svelte";
     import Checkbox from "./checkbox.svelte";
     import Input from "./input.svelte";
@@ -21,8 +19,43 @@
     let checkboxError: string = '';
 
     let notificationVisible: boolean = false;
-    let notificationText = 'Your proposal was succesefully sended. Thank you for your opinion, this is very important for us. We will answer you as soon as possible.';
+    // let notificationText = 'Your proposal was succesefully sended. Thank you for your opinion, this is very important for us. We will answer you as soon as possible.';
 
+    let notificationData = {
+        title: '',
+        text: '',
+        status: false
+    }
+    const sendData = async () => {
+        let data = {
+            name,
+            company,
+            email,
+            phone,
+            subject,
+            message
+        }
+        const response = await fetch('url', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            console.log('Данные успешно отправлены!');
+            notificationData.title = 'Message sended'
+            notificationData.text = 'Your proposal was succesefully sended. Thank you for your opinion, this is very important for us. We will answer you as soon as possible.'
+            notificationData.status = true
+
+        } else {
+            console.error('Произошла ошибка при отправке данных.');
+            notificationData.title = 'Something went wrong'
+            notificationData.text = 'Try to send another message or please try again later'
+            notificationData.status = false
+        }
+    }
     
     const onValidate = () => {
         let isValid = true;
@@ -57,7 +90,7 @@
         }
 
         if(!isChecked) {
-            checkboxError = 'Please check our rules'
+            checkboxError = ' Checkbox is required'
             isValid = false
         } else {
             checkboxError = ''
@@ -72,7 +105,7 @@
             return
         }
         //тут должен быть fetch, но куда отправлять то?
-        console.log(name, company, email, phone, message, subject)
+        sendData()
         notificationVisible = true;
         setTimeout(() => {
             notificationVisible = false;
@@ -95,7 +128,9 @@
 <div class="form__wrapper">
     <Notification
         isVisible={notificationVisible}
-        notificationText={notificationText}
+        notificationTitle={notificationData.title}
+        notificationText={notificationData.text}
+        notificationStatus={notificationData.status}
         onClose={closeNotification}
     />
     <form class="form" on:submit|preventDefault={onSubmit}>
@@ -162,7 +197,7 @@
                     bind:isChecked            
                 />
                 <label for="form-confidential">
-                    I accept <a href="#">Terms and Privacy Policy</a>
+                    I accept <a target="_blank" href="https://digitalpartnersglobal.com/privacy_policy?l=en">Terms and Privacy Policy</a>
                 </label>
             </div>
             {#if checkboxError}
@@ -192,15 +227,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
+        gap: 0.6rem;
         color: $textMain;
-        font-size: 18px;
         line-height: 120%;
         text-align: center;
 
         &__wrapper {
-            margin-bottom: 87px;
-            padding: 40px 45px;
+            margin-bottom: 4.8rem;
+            padding: 2.22rem 2.5rem;
             background-color: $backgroundMain;
             box-shadow: $shadow;
             border-radius: 27px;
@@ -210,7 +244,7 @@
             max-width: 238px;
             span {
                 color: $textSecondary;
-                font-size: 15px;
+                font-size: 0.83rem;
                 font-weight: 300;
             }
         }
@@ -220,7 +254,7 @@
             width: 120%;
             display: flex;
             flex-direction: column;
-            gap: 38px;
+            gap: 2.11rem;
         }
 
         &__confidential {
@@ -232,11 +266,11 @@
         &__checkbox-row {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 26px 0;
+            gap: 0.66rem;
+            padding: 1.44rem 0;
             & > label {
                 flex: 1 0 auto;
-                font-size: 15px;
+                font-size: 0.66rem;
                 font-weight: 300;
                 color: $textSecondary;
                 & > a {
@@ -250,7 +284,7 @@
             left: 50%;
             transform: translateX(-50%);
             bottom: 0;
-            font-size: 12px;
+            font-size: 0.66rem;
             color: $textError;
         }
     }
