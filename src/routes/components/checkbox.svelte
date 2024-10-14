@@ -10,8 +10,7 @@
         }
         if(event.type === 'click') {
             isChecked = !isChecked;
-        }
-        
+        }    
     }
 </script>
 
@@ -98,3 +97,10 @@
         }
     }
 </style>
+
+<!-- 
+const validateText = (value: string) => {
+    if(value.trim().length === 0) {
+        
+    }
+} -->
