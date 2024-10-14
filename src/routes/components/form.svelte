@@ -1,4 +1,6 @@
 <script lang="ts">
+    import '../../variables.scss';
+
     import Button from "./button.svelte";
     import Checkbox from "./checkbox.svelte";
     import Input from "./input.svelte";
@@ -69,6 +71,7 @@
         if(!validation) {
             return
         }
+        //тут должен быть fetch, но куда отправлять то?
         console.log(name, company, email, phone, message, subject)
         notificationVisible = true;
         setTimeout(() => {
@@ -95,14 +98,6 @@
         notificationText={notificationText}
         onClose={closeNotification}
     />
-    <!-- {#if notificationVisible === true}
-        <div class="notification-overlay" on:click={handleOverlayClick}>
-            <Notification 
-                notificationText={notificationText}
-                onClose = {() => closeNotification()}
-            />
-        </div>
-    {/if} -->
     <form class="form" on:submit|preventDefault={onSubmit}>
         <div class="form__header">
             <p>For business enquiries please use the form below</p>
@@ -161,12 +156,18 @@
             />
         </div>
         <div class="form__confidential">
-            <Checkbox 
-                name='confidential'
-                bind:isChecked            />
-            <label for="form-confidential">
-                I accept <a href="#">Terms and Privacy Policy</a>
-            </label>
+            <div class="form__checkbox-row">
+                <Checkbox 
+                    name='confidential'
+                    bind:isChecked            
+                />
+                <label for="form-confidential">
+                    I accept <a href="#">Terms and Privacy Policy</a>
+                </label>
+            </div>
+            {#if checkboxError}
+                <span class="form__error">{checkboxError}</span>
+            {/if}
         </div>
         <Button
             type='default'
@@ -178,13 +179,21 @@
 </div>
 
 <style lang="scss">
-    $form: #171929;
+
+    $backgroundMain: #171929;
+    $shadow: 0 0 50px #000000bb;
+    $textMain: #fff;
+    $textSecondary: #797EA3;
+    $textAccent: #B9BEE5;
+    $textError: #FF1800;
+
+
     .form {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        color: #fff;
+        color: $textMain;
         font-size: 18px;
         line-height: 120%;
         text-align: center;
@@ -192,39 +201,57 @@
         &__wrapper {
             margin-bottom: 87px;
             padding: 40px 45px;
-            background-color: $form;
-            box-shadow: 0 0 50px #000000bb;
+            background-color: $backgroundMain;
+            box-shadow: $shadow;
             border-radius: 27px;
         }
 
         &__header{
+            max-width: 238px;
             span {
-                color: #797EA3;
+                color: $textSecondary;
                 font-size: 15px;
                 font-weight: 300;
             }
         }
 
         &__inputs {
-            width: 100%;
+            max-width: 300px;
+            width: 120%;
             display: flex;
             flex-direction: column;
             gap: 38px;
         }
 
         &__confidential {
+            position: relative;
+            max-width: 263px;
+            
+        }
+
+        &__checkbox-row {
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 26px 0;
             & > label {
+                flex: 1 0 auto;
                 font-size: 15px;
                 font-weight: 300;
-                color: #797EA3;
+                color: $textSecondary;
                 & > a {
-                    color: #B9BEE5;
+                    color: $textAccent;
                 }
             }
+        }
+
+        &__error {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            font-size: 12px;
+            color: $textError;
         }
     }
 </style>

@@ -21,30 +21,38 @@
 </button>
 
 <style lang="scss">
+
+    $default: #2C2F47;
+    $succes: #00B945;
+    $attention: #FF7A00;
+    $danger: #FF1800;
+    $shadow: 0 0 50px #000000bb;
+    $textMain: #fff;
+
     .customBtn {
         min-height: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px 40px;
-        color: #fff;
-        background-color: #2C2F47;
+        color: $textMain;
+        background-color: $default;
         border: none;
         outline: none;
         border-radius: 50px;
-        box-shadow: 0 0 50px #000000bb;
+        box-shadow: $shadow;
         cursor: pointer;
 
         &_succes {
-            background-color: #00B945;
+            background-color: $succes;
         }
 
         &_atention {
-            background-color: #FF7A00;
+            background-color: $attention;
         }
 
         &_danger {
-            background-color: #FF1800;
+            background-color: $danger;
         }
     }
 </style>

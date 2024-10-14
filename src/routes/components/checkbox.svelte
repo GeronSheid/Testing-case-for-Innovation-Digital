@@ -48,11 +48,12 @@
 </div>
 
 <style lang="scss">
+
     $size: 30px;
-        $borderColor: #3F4363;
-        $borderHover: #8f94b8a8;
-        $active: #2C2F47;
-        $transition: 0.3s ease-in-out; 
+    $borderColor: #3F4363;
+    $borderHover: #8f94b8a8;
+    $active: #2C2F47;
+    $transition: 0.3s ease-in-out; 
 
     .customCheckbox {
         width: $size;
@@ -64,6 +65,7 @@
         border-radius: 8px;
         outline: none;
         transition: border-color $transition, background-color $transition;
+        cursor: pointer;
 
         &:focus {
             border-color: $borderHover;
@@ -97,10 +99,3 @@
         }
     }
 </style>
-
-<!-- 
-const validateText = (value: string) => {
-    if(value.trim().length === 0) {
-        
-    }
-} -->

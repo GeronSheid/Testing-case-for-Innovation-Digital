@@ -60,20 +60,24 @@
 
 
 <style lang="scss">
-    $input-color: #797EA3;
+
     $transition: 0.3s ease-in-out;
+    $textMain: #fff;
+    $textSecondary: #797EA3;
+    $textAccent: #B9BEE5;
+    $textError: #FF1800;
 
     .customInput {
         display: flex;
         position: relative;
         flex-direction: column;
-        color: $input-color;
+        color: $textSecondary;
         text-align: left;
         transition: color $transition;
 
         & > input {
             margin: 6px 0 5px 0;
-            color: inherit;
+            color: $textMain;
             background-color: transparent;
             border: none;
             outline: none;
@@ -81,7 +85,8 @@
 
         & > textarea {
             margin: 6px 0 5px 0;
-            color: inherit;
+            font-size: 18px;
+            color: $textMain;
             background-color: transparent;
             border: none;
             outline: none;
@@ -96,14 +101,14 @@
                 width: 100%;
                 left: 0;
                 bottom: 0;
-                background-color: $input-color;
+                background-color: $textSecondary;
                 transition: background-color $transition;
             }
 
     &:focus-within {
-        color: #fff;
+        color: $textAccent;
         &::after {
-            background-color: #fff;
+            background-color: $textAccent;
         }
     }
 
@@ -112,15 +117,15 @@
         left: 0;
         bottom: -50%;
         font-size: 12px;
-        color: red;
+        color: $textError;
     }
     }
 
     @media (any-hover: hover) {
         .customInput:hover {
-            color: #fff;
+            color: $textAccent;
             &::after {
-                background-color: #fff;
+                background-color: $textAccent;
             }
         }
     }
