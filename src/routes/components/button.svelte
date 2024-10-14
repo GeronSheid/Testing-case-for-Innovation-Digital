@@ -32,6 +32,8 @@
         border: none;
         outline: none;
         border-radius: 50px;
+        box-shadow: 0 0 50px #000000bb;
+        cursor: pointer;
 
         &_succes {
             background-color: #00B945;

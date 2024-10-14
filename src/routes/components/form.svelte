@@ -2,20 +2,25 @@
     import Button from "./button.svelte";
     import Checkbox from "./checkbox.svelte";
     import Input from "./input.svelte";
+    import Notification from "./Notification.svelte";
 
-    let name = '';
-    let company = '';
-    let email = '';
-    let phone = '';
-    let subject = '';
-    let message = '';
+    let name: string = '';
+    let company: string = '';
+    let email: string = '';
+    let phone: string = '';
+    let subject: string = '';
+    let message: string = '';
     let isChecked = false;
 
-    let nameError = '';
-    let companyError = '';
-    let emailError = '';
-    let phoneError = '';
-    let checkboxError = '';
+    let nameError: string = '';
+    let companyError: string = '';
+    let emailError: string = '';
+    let phoneError: string = '';
+    let checkboxError: string = '';
+
+    let notificationVisible: boolean = false;
+    let notificationText = 'Your proposal was succesefully sended. Thank you for your opinion, this is very important for us. We will answer you as soon as possible.';
+
     
     const onValidate = () => {
         let isValid = true;
@@ -65,17 +70,40 @@
             return
         }
         console.log(name, company, email, phone, message, subject)
+        notificationVisible = true;
+        setTimeout(() => {
+            notificationVisible = false;
+        }, 3000);
         name = ''
         company = ''
         email = ''
         phone = ''
         message = ''
         subject = ''
+        isChecked = false
+        console.log(notificationVisible)
+    }
+    
+    const closeNotification = () => {
+        notificationVisible = false;
     }
 </script>
 
 <div class="form__wrapper">
-    <form class="form" action="">
+    <Notification
+        isVisible={notificationVisible}
+        notificationText={notificationText}
+        onClose={closeNotification}
+    />
+    <!-- {#if notificationVisible === true}
+        <div class="notification-overlay" on:click={handleOverlayClick}>
+            <Notification 
+                notificationText={notificationText}
+                onClose = {() => closeNotification()}
+            />
+        </div>
+    {/if} -->
+    <form class="form" on:submit|preventDefault={onSubmit}>
         <div class="form__header">
             <p>For business enquiries please use the form below</p>
             <span>*Required</span>
@@ -150,6 +178,7 @@
 </div>
 
 <style lang="scss">
+    $form: #171929;
     .form {
         display: flex;
         flex-direction: column;
@@ -161,8 +190,9 @@
         text-align: center;
 
         &__wrapper {
+            margin-bottom: 87px;
             padding: 40px 45px;
-            background-color: #171929;
+            background-color: $form;
             box-shadow: 0 0 50px #000000bb;
             border-radius: 27px;
         }
